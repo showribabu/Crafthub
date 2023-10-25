@@ -109,7 +109,7 @@ api.get('/updateDetails',async function(req,res){
     const data=url.parse(req.url,true);
     // {'username':'', 'usermail':'', 'phonenumber':'', 'profilePhoto':'', 'age':'', 'area':'', 'skills':'','experience':''}
 
-    var query={'username':data.query.username, 'usermail':data.query.usermail, 'phonenumber':data.query.phonenumber, 'profilePhoto':data.query.profilePhoto, 'age':data.query.age, 'area':data.query.area, 'skills':data.query.skills,'experience':data.query.experience};
+    var query={'username':data.query.username, 'usermail':data.query.usermail, 'phonenumber':data.query.phonenumber, 'profilePhoto':data.query.profilephoto, 'age':data.query.age, 'area':data.query.area, 'skills':data.query.skills,'experience':data.query.experience};
     const result=await updateDetails(query);
     res.send(result);
 })
