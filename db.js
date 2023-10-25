@@ -3,6 +3,7 @@ const client = new MongoClient("mongodb://127.0.0.1:27017");
 const dbName = "craftshub";
 const collectionName = "crafts";
 //hello there
+
 async function userRegister(query) {
     // {'username':'','usermail':'','userpassword':'','phonenumber':'','profilePhoto':'', 'age':'', 'area':'', 'skills':'', 'experience':'', 'workphotos':'' }
     await client.connect();
