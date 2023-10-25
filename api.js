@@ -26,8 +26,6 @@ api.get('/userRegister',async function(req,res){
 
     var query=
     {'username':data.query.username,'usermail':data.query.usermail,'userpassword':data.query.userpassword,'cuserpassword':data.query.cuserpassword,'phonenumber':data.query.phonenumber,'profilephoto':data.query.profilephoto, 'age':data.query.age, 'area':data.query.area, 'skills':data.query.skills, 'experience':data.query.experience, 'workphotos':data.query.workphotos};
-    
-    
     const result=await userRegister(query);
     res.send(result);
 
@@ -93,7 +91,7 @@ api.get('/findUserByAreaBySkill',async function(req,res){
 api.get('/updatePasswordMail',async function(req,res){
 
     const data=url.parse(req.url,true);
-    var query={'usermail':data.query.usermail,'usermail':data.query.usermail};
+    var query={'usermail':data.query.usermail,'password':data.query.password};
     const result=await updatePasswordMail(query);
     res.send(result);
 })
@@ -111,7 +109,7 @@ api.get('/updateDetails',async function(req,res){
     const data=url.parse(req.url,true);
     // {'username':'', 'usermail':'', 'phonenumber':'', 'profilePhoto':'', 'age':'', 'area':'', 'skills':'','experience':''}
 
-    var query={'username':data.query.username, 'usermail':data.query.usermail, 'phonenumber':data.query.phonenumber, 'profilephoto':data.query.profilephoto, 'age':data.query.age, 'area':data.query.area, 'skills':data.query.skills,'experience':data.query.experience};
+    var query={'username':data.query.username, 'usermail':data.query.usermail, 'phonenumber':data.query.phonenumber, 'profilePhoto':data.query.profilephoto, 'age':data.query.age, 'area':data.query.area, 'skills':data.query.skills,'experience':data.query.experience};
     const result=await updateDetails(query);
     res.send(result);
 })
