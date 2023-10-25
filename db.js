@@ -5,25 +5,25 @@ const collectionName = "crafts";
 //hello there
 
 async function userRegister(query) {
-    // {'username':'','usermail':'','userpassword':'','phonenumber':'','profilePhoto':'', 'age':'', 'area':'', 'skills':'', 'experience':'', 'workphotos':'' }
+    // {'username':'','usermail':'','userpassword':'','cuserpassword':'','phonenumber':'','profilephoto':'', 'age':'', 'area':'', 'skills':'', 'experience':'', 'workphotos':'' }
     await client.connect();
     const db = client.db(dbName);
     const coll = db.collection(collectionName);
-    if (query.password === query.cpassword) {
-        const res1 = await coll.find({ mail: query.mail }).toArray();
+    if (query.userpassword == query.cuserpassword) {
+        const res1 = await coll.find({ phonenumber: query.phonenumber }).toArray();
         if (res1.length == 0) {
             const res2 = await coll.find({ username: query.username }).toArray();
             if (res2.length == 0) {
                 await coll.insertOne(query);
-                return { message: "User regisered" };
+                return { 'message': "User regisered" };
             } else {
-                return { message: "Username already Taken" };
+                return { 'message': "Username already Taken" };
             }
         } else {
-            return { message: "Already Exists" };
+            return { 'message': "Already Exists" };
         }
     } else {
-        return { message: "Password not matched." };
+        return { 'message': "Password not matched." };
     }
 }
 
@@ -35,12 +35,12 @@ async function userLogin(query) {
     const res1 = await coll.find({ username: query.username }).toArray();
     if (res1.length > 0) {
         if (res1[0].password == query.password) {
-            return { message: "Login Successful" };
+            return { 'message': "Login Successful" };
         } else {
-            return { message: "Invalid Login" };
+            return { 'message': "Invalid Login" };
         }
     } else {
-        return { message: "No users Found, Register First." };
+        return { 'message': "No users Found, Register First." };
     }
 }
 
@@ -50,9 +50,9 @@ async function findAll() {
     const coll = db.collection(collectionName);
     const res1 = await coll.find().toArray();
     if (res1.length > 0) {
-        return { message: res1 };
+        return { 'message': res1 };
     } else {
-        return { message: "No Users" };
+        return { 'message': "No Users" };
     }
 }
 
@@ -63,9 +63,9 @@ async function findUserByName(query) {
     const coll = db.collection(collectionName);
     const res1 = await coll.find({ username: query.username }).toArray();
     if (res1.length > 0) {
-        return { message: res1 };
+        return { 'message': res1 };
     } else {
-        return { message: "No user" };
+        return { 'message': "No user" };
     }
 }
 
@@ -74,6 +74,22 @@ async function findUserBySkills(query) {
     await client.connect();
     const db = client.db(dbName);
     const coll = db.collection(collectionName);
+
+    const res1 = await coll.find({ skills: { $in: query.skills } }).toArray();
+
+    console.log(res1);
+
+    for(let i=0;i<res1.length;i++)
+    {
+        if (res1[i]==query.skills){
+            console.log(res1[i]);
+            return {'message':res1};
+        }
+    }
+    return {'message':'No user avilable with that skills'};
+    
+
+
 }
 
 async function findUserByExperience(query) {
@@ -139,20 +155,20 @@ async function updatePasswordMail(query) {
     await client.connect();
     const db = client.db(dbName);
     const coll = db.collection(collectionName);
-    const res1 = await coll.find({ mail: query.mail }).toArray();
+    const res1 = await coll.find({ usermail: query.usermail }).toArray();
 
     if (res1.length > 0) {
-        if (res1[0].password == query.password) {
-            return { message: "Password Exist, give another password" };
+        if (res1[0].userpassword == query.userpassword) {
+            return { 'message': "Password Exist, give another password" };
         } else {
             const res2 = await coll.updateOne(
                 { mail: query.mail },
                 { $set: { password: query.password } }
             );
-            return { message: "Password Updated." };
+            return { 'message': "Password Updated." };
         }
     } else {
-        return { message: "No such user exist." };
+        return { 'message': "No such user exist." };
     }
 }
 
@@ -161,20 +177,20 @@ async function updatePasswordByPhonenumber(query) {
     await client.connect();
     const db = client.db(dbName);
     const coll = db.collection(collectionName);
-    const res1 = await coll.find({ phone: query.phone }).toArray();
+    const res1 = await coll.find({ phonenumber: query.phonenumber }).toArray();
 
     if (res1.length > 0) {
-        if (res1[0].password == query.password) {
-            return { message: "Password Exist, give another password" };
+        if (res1[0].userpassword == query.userpassword) {
+            return { 'message': "Password Exist, give another password" };
         } else {
             const res2 = await coll.updateOne(
-                { phone: query.phone },
-                { $set: { password: query.password } }
+                { phonenumber: query.phonenumber },
+                { $set: { userpassword: query.userpassword } }
             );
-            return { message: "Password Updated." };
+            return { 'message': "Password Updated." };
         }
     } else {
-        return { message: "No such user exist." };
+        return { 'message': "No such user exist." };
     }
 }
 
@@ -190,20 +206,20 @@ async function updateDetails(query) {
             { username: query.username },
             {
                 $set: {
-                    password: query.password,
-                    mail: query.mail,
-                    phone: query.phone,
-                    photo: query.photo,
+                    userpassword: query.userpassword,
+                    usermail: query.usermail,
+                    phonenumber: query.phonenumber,
+                    profilephoto: query.profilephoto,
                     age: query.age,
                     area: query.area,
                     skills: query.skills,
-                    experience: query.experience
+                    experience: query.experience,
                 },
             }
         );
-        return { message: "User details Updated." };
+        return { 'message': "User details Updated." };
     } else {
-        return { message: "No users to update." };
+        return { 'message': "No users to update." };
     }
 }
 
@@ -216,13 +232,13 @@ async function deleteUser(query) {
     const res1 = await coll.find({username: query.username}).toArray();
     if (res1.length != 0) {
         const delRes = await coll.deleteOne(query);
-        return { "deleted :": query };
+        return { 'message': 'deleted successfully!!' };
     } else {
-        return { message: "No such record" };
+        return { 'message': "No such record" };
     }
 }
 
-export default {
+module.exports={
     userRegister,
     userLogin,
     findAll,
