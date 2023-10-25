@@ -196,7 +196,7 @@ async function updateDetails(query) {
                     age: query.age,
                     area: query.area,
                     skills: query.skills,
-                    experience: query.experience,
+                    experience: query.experience
                 },
             }
         );
