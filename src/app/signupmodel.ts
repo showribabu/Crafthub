@@ -4,7 +4,6 @@ constructor(
     public username:string,
     public usermail:string,
     public userpassword:string,
-    public photo:string
     
     ){}
 

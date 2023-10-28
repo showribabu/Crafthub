@@ -9,6 +9,8 @@ async function userRegister(query) {
     await client.connect();
     const db = client.db(dbName);
     const coll = db.collection(collectionName);
+    console.log('data returned meth()');
+
     if (query.userpassword == query.cuserpassword) {
         const res1 = await coll.find({ phonenumber: query.phonenumber }).toArray();
         if (res1.length == 0) {
@@ -34,7 +36,7 @@ async function userLogin(query) {
     const coll = db.collection(collectionName);
     const res1 = await coll.find({ username: query.username }).toArray();
     if (res1.length > 0) {
-        if (res1[0].password == query.password) {
+        if (res1[0].userpassword == query.userpassword) {
             return { 'message': "Login Successful" };
         } else {
             return { 'message': "Invalid Login" };
