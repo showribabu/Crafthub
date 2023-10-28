@@ -19,6 +19,24 @@ const url=require('url');
 
 
 
+// cors policy..
+
+const cors=require('cors');
+
+const policy={
+    origin:'http://localhost:4200',
+    methods:'GET,POST',
+    credentials:true,
+    optionsSuccess:204
+
+}
+
+api.use(cors(policy));
+
+
+
+
+
 api.get('/userRegister',async function(req,res){
 
     const data=url.parse(req.url,true);

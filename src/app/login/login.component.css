@@ -1,0 +1,17 @@
+.row{
+    margin-top:20px;
+    padding:30px;
+    background-color:white 0.1;
+    box-shadow:2px 5px 10px black;
+    font-weight:bold;
+    border-radius: 16px;
+
+
+}
+.row div{
+    padding:5px;
+}
+
+.container h2{
+    font-weight:bolder;
+}

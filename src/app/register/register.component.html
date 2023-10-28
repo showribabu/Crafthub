@@ -1,0 +1,42 @@
+<div class="container col-md-4">
+
+    <div class="row justify-content-center">
+        <h2 style="text-align:center;">SignUp Form</h2>
+    
+        <!-- {{signupForm.value | json }} -->
+        {{signupmodel |json}}
+        <!-- template variable...  -->
+        <form #signupForm="ngForm"  (ngSubmit)="onSignup()">
+            <div class="form-group"> 
+                <label>Name:</label>
+                <input type="text" class="form-control" name="username" [(ngModel)]="signupmodel.username">
+            </div>
+
+            <div class="form-group"> 
+                <label for="">Mail</label>
+                <input type="mail" class="form-control" name="usermail"  [(ngModel)]="signupmodel.usermail">
+            </div>
+
+            <div class="form-group"> 
+                <label for="">Password</label>
+                <input type="password" class="form-control" name="userpassword" [(ngModel)]="signupmodel.userpassword">
+            </div>
+
+            <div class="form-group">
+
+                <label for="">Upload photo</label>
+                <input type="file" class="form-control" name="photo"  [(ngModel)]="signupmodel.photo">
+            </div>
+
+
+            <div style="text-align:center;">
+                <button type="submit" class="btn btn-primary" >Signup</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <span>{{response.message}}</span>
+    </div>
+
+</div>
